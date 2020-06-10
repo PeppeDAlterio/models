@@ -58,13 +58,23 @@ flags.DEFINE_integer(
     'retries upon encountering tf.errors.InvalidArgumentError. If negative, '
     'will always retry the evaluation.'
 )
+flags.DEFINE_integer(
+    'save_checkpoints_steps', 200, 'Save checkpoints every this many steps.'
+)
+flags.DEFINE_string(
+    'log_step_count_steps', 100, 'The frequency, in number of global steps, '
+    'that the global step and the loss will be logged during training.'
+)
+
 FLAGS = flags.FLAGS
 
 
 def main(unused_argv):
   flags.mark_flag_as_required('model_dir')
   flags.mark_flag_as_required('pipeline_config_path')
-  config = tf.estimator.RunConfig(model_dir=FLAGS.model_dir)
+  config = tf.estimator.RunConfig(model_dir=FLAGS.model_dir, 
+                                  save_checkpoints_steps=FLAGS.save_checkpoints_steps,
+                                  log_step_count_steps=FLAGS.log_step_count_steps)
 
   train_and_eval_dict = model_lib.create_estimator_and_inputs(
       run_config=config,
