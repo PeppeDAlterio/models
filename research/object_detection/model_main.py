@@ -61,7 +61,7 @@ flags.DEFINE_integer(
 flags.DEFINE_integer(
     'save_checkpoints_steps', 200, 'Save checkpoints every this many steps.'
 )
-flags.DEFINE_string(
+flags.DEFINE_integer(
     'log_step_count_steps', 100, 'The frequency, in number of global steps, '
     'that the global step and the loss will be logged during training.'
 )
