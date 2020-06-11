@@ -44,6 +44,9 @@ flags.DEFINE_integer('sample_1_of_n_eval_on_train_examples', 5, 'Will sample '
                      'one of every n train input examples for evaluation, '
                      'where n is provided. This is only used if '
                      '`eval_training_data` is True.')
+flags.DEFINE_integer('keep_checkpoint_max', 5, 'The maximum number of recent checkpoint files to keep.'
+                     'As new files are created, older files are deleted.'
+                     'If None or 0, all checkpoint files are kept.')
 flags.DEFINE_string(
     'hparams_overrides', None, 'Hyperparameter overrides, '
     'represented as a string containing comma-separated '
@@ -75,7 +78,8 @@ FLAGS = flags.FLAGS
 def main(unused_argv):
   flags.mark_flag_as_required('model_dir')
   flags.mark_flag_as_required('pipeline_config_path')
-  config = tf.estimator.RunConfig(model_dir=FLAGS.model_dir, 
+  config = tf.estimator.RunConfig(model_dir=FLAGS.model_dir,
+                                  keep_checkpoint_max=FLAGS.keep_checkpoint_max,
                                   save_checkpoints_steps=FLAGS.save_checkpoints_steps,
                                   log_step_count_steps=FLAGS.log_step_count_steps)
 
