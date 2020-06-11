@@ -32,6 +32,8 @@ flags.DEFINE_string('pipeline_config_path', None, 'Path to pipeline config '
                     'file.')
 flags.DEFINE_integer('num_train_steps', None, 'Number of train steps.')
 flags.DEFINE_integer('num_eval_steps', None, 'Number of eval steps.')
+flags.DEFINE_integer('eval_throttle_secs', 600, 'evaluate every N seconds')
+flags.DEFINE_integer('eval_start_delay_secs', 120, 'start evaluating after N seconds')
 flags.DEFINE_boolean('eval_training_data', False,
                      'If training data should be evaluated for this job. Note '
                      'that one call only use this in eval-only mode, and '
@@ -116,6 +118,8 @@ def main(unused_argv):
         predict_input_fn,
         train_steps,
         num_eval_steps=FLAGS.num_eval_steps,
+        eval_throttle_secs=FLAGS.eval_throttle_secs,
+        eval_start_delay_secs=FLAGS.eval_start_delay_secs,
         eval_on_train_data=False)
 
     # Currently only a single Eval Spec is allowed.
