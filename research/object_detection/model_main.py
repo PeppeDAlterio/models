@@ -31,6 +31,7 @@ flags.DEFINE_string(
 flags.DEFINE_string('pipeline_config_path', None, 'Path to pipeline config '
                     'file.')
 flags.DEFINE_integer('num_train_steps', None, 'Number of train steps.')
+flags.DEFINE_integer('num_eval_steps', None, 'Number of eval steps.')
 flags.DEFINE_boolean('eval_training_data', False,
                      'If training data should be evaluated for this job. Note '
                      'that one call only use this in eval-only mode, and '
@@ -114,6 +115,7 @@ def main(unused_argv):
         eval_on_train_input_fn,
         predict_input_fn,
         train_steps,
+        num_eval_steps=FLAGS.num_eval_steps,
         eval_on_train_data=False)
 
     # Currently only a single Eval Spec is allowed.
