@@ -802,6 +802,7 @@ def create_train_and_eval_specs(train_input_fn,
                                 eval_on_train_input_fn,
                                 predict_input_fn,
                                 train_steps,
+                                num_eval_steps=None,
                                 eval_on_train_data=False,
                                 final_exporter_name='Servo',
                                 eval_spec_names=None):
@@ -846,7 +847,7 @@ def create_train_and_eval_specs(train_input_fn,
         tf.estimator.EvalSpec(
             name=eval_spec_name,
             input_fn=eval_input_fn,
-            steps=None,
+            steps=num_eval_steps,
             exporters=exporter))
 
   if eval_on_train_data:
